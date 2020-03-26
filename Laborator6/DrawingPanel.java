@@ -1,18 +1,20 @@
-import javafx.scene.shape.Circle;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class DrawingPanel extends JPanel {
     final MainFrame frame;
-    final static int W = 800, H = 600;
+    final static int W = 1000, H = 600;
     BufferedImage image;
     Graphics2D graphics;
+    Random rand;
+
     public DrawingPanel(MainFrame frame) {
         this.frame = frame; createOffscreenImage(); init();
     }
+
     protected void createOffscreenImage() {
         image = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
@@ -27,14 +29,21 @@ public class DrawingPanel extends JPanel {
                 drawShape(e.getX(), e.getY()); repaint();
             } //Can’t use lambdas, JavaFX does a better job in these cases
         });
+        rand = new Random();
     }
     private void drawShape(int x, int y) {
-        int radius = 5; //generate a random number
+        int radius = rand.nextInt(50);
         int size = (int)this.frame.configPanel.sizeField.getValue();
         Color color = Color.BLUE;
         graphics.setColor(color);
         graphics.fill(new Rectangle(x, y, size, size));
     }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+        graphics = image.createGraphics();
+    }
+
     @Override
     public void update(Graphics g) { }
 

@@ -13,7 +13,7 @@ public class ConfigPanel extends JPanel {
     private void init() {
         sizeLabel = new JLabel("Size:");
         sizeField = new JSpinner(new SpinnerNumberModel(0, 0, 100, 1));
-        sizeField.setValue(5);
+        sizeField.setValue(10);
 
         this.add(sizeLabel);
         this.add(sizeField);

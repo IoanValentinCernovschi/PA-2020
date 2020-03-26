@@ -1,7 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.*;
 
 public class ControlPanel extends JPanel {
@@ -18,17 +22,20 @@ public class ControlPanel extends JPanel {
 
     private void init() {
 
-        saveBtn.setBounds(50, 10, 100, 20);
-        resetBtn.setBounds(150, 10, 100, 20);
-        exitBtn.setBounds(250, 10, 100, 20);
+        saveBtn.setBounds(50, 800, 100, 20);
+        loadBtn.setBounds(150, 800, 100, 20);
+        resetBtn.setBounds(250, 800, 100, 20);
+        exitBtn.setBounds(350, 800, 100, 20);
 
         saveBtn.addActionListener(this::save);
+        loadBtn.addActionListener(this::load);
         resetBtn.addActionListener(this::reset);
         exitBtn.addActionListener(this::exit);
 
-        this.frame.add(saveBtn);
-        this.frame.add(resetBtn);
-        this.frame.add(exitBtn);
+        this.add(saveBtn);
+        this.add(loadBtn);
+        this.add(resetBtn);
+        this.add(exitBtn);
     }
 
     private void save(ActionEvent e) {
@@ -40,11 +47,9 @@ public class ControlPanel extends JPanel {
 
     private void load(ActionEvent e) {
         try {
-            Image img;
-            Graphics g = null;
-            img = ImageIO.read(new FileInputStream("D:/Scoala/Facultate/Anul II/Programare Avansata/imagini.png"));
-            g.drawImage(img, 0, 0, this);
-            paintComponent(g);
+            BufferedImage canvasImage = ImageIO.read(new FileInputStream("D:/Scoala/Facultate/Anul II/Programare Avansata/imagini.png"));
+            frame.canvas.setImage(canvasImage);
+
         } catch (IOException ex) { System.err.println(ex); }
     }
 
