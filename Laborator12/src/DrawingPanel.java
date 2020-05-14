@@ -7,7 +7,7 @@ public class DrawingPanel extends JPanel {
 
     public DrawingPanel(MainFrame frame) {
         this.frame = frame;
-        this.setLayout(null);
+        this.setLayout(new FlowLayout());
         init();
     }
 
